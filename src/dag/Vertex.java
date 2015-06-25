@@ -10,6 +10,8 @@ public class Vertex
     public int index;
     public int averageExecutionTime;
     public double computationCost;
+    public int EST;
+    public int LST;
 
     @Override
     public String toString() {

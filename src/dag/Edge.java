@@ -11,6 +11,9 @@ public class Edge
     public int endVertex;
     public double communicationCost;
 
+    public int LST;
+    public int EST;
+
     @Override
     public String toString() {
         return "Edge{" +
