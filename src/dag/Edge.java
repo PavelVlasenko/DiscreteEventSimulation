@@ -7,7 +7,16 @@ package dag;
  */
 public class Edge
 {
-    int startVertex;
-    int endVertex;
-    double communicationCost;
+    public int startVertex;
+    public int endVertex;
+    public double communicationCost;
+
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "startVertex=" + startVertex +
+                ", endVertex=" + endVertex +
+                ", communicationCost=" + communicationCost +
+                '}';
+    }
 }

@@ -7,6 +7,16 @@ package dag;
  */
 public class Vertex
 {
-    int index;
-    int averageExecutionTime;
+    public int index;
+    public int averageExecutionTime;
+    public double computationCost;
+
+    @Override
+    public String toString() {
+        return "Vertex{" +
+                "index=" + index +
+                ", averageExecutionTime=" + averageExecutionTime +
+                ", computationCost=" + computationCost +
+                '}';
+    }
 }
