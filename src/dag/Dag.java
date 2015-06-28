@@ -1,7 +1,9 @@
 package dag;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * TODO: Java docs
@@ -10,8 +12,8 @@ import java.util.List;
  */
 public class Dag
 {
-    public List<Vertex> vertices = new ArrayList<>();
-    public List<Edge> edges = new ArrayList<>();
+    public Set<Vertex> vertices = new HashSet<>();
+    public Set<Edge> edges = new HashSet<>();
 
     public void showDag() {
         System.out.println("==================== Vertices   ================");
@@ -26,5 +28,17 @@ public class Dag
        {
            System.out.println(edge);
        }
+    }
+
+    public Vertex getVertexByIndex(int index)
+    {
+        for(Vertex v : vertices)
+        {
+            if(v.index == index)
+            {
+                return v;
+            }
+        }
+        return null;
     }
 }

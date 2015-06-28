@@ -19,6 +19,8 @@ public class Vertex
                 "index=" + index +
                 ", averageExecutionTime=" + averageExecutionTime +
                 ", computationCost=" + computationCost +
+                ", EST=" + EST +
+                ", LST=" + LST +
                 '}';
     }
 }

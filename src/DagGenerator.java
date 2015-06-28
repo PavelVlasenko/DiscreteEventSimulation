@@ -30,9 +30,10 @@ public class DagGenerator
                     edgeExist = true;
                 }
             }
-            if (!edgeExist)
+            if (!edgeExist & i!= vertexNumb -1)
             {
-                int jRandom = random.nextInt(vertexNumb - i) + i;
+                int jRandom = random.nextInt(vertexNumb - i - 1) + i + 1;
+                matrix[i][jRandom] = 1;
             }
         }
         for(int i = 0; i < vertexNumb; i++)
@@ -42,6 +43,10 @@ public class DagGenerator
             }
             System.out.print("\r\n");
         }
+
+        //it's needed for latest vertex
+        int iRandom = random.nextInt(vertexNumb - 2);
+        matrix[iRandom][vertexNumb -1] = 1;
 
         //create vertices
         for(int i = 0; i < vertexNumb; i++)
