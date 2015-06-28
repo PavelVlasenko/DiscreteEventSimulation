@@ -36,6 +36,11 @@ public class DagGenerator
                 matrix[i][jRandom] = 1;
             }
         }
+
+        //it's needed for latest vertex
+        int iRandom = random.nextInt(vertexNumb - 2);
+        matrix[iRandom][vertexNumb -1] = 1;
+
         for(int i = 0; i < vertexNumb; i++)
         {
             for(int j = 0; j < vertexNumb; j++) {
@@ -43,10 +48,6 @@ public class DagGenerator
             }
             System.out.print("\r\n");
         }
-
-        //it's needed for latest vertex
-        int iRandom = random.nextInt(vertexNumb - 2);
-        matrix[iRandom][vertexNumb -1] = 1;
 
         //create vertices
         for(int i = 0; i < vertexNumb; i++)
