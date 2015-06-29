@@ -277,8 +277,6 @@ public class DagProcessor
     {
         List<Vertex> resultTaskList = new ArrayList<>();
         LinkedList<Vertex> stackS = new LinkedList<>();
-        Set<Vertex> allNodes = new HashSet<>(dag.vertices);
-
 
         //Identify the most critical path nodes CN based on  value EST& LST = equal or 0
         for(Vertex v : dag.vertices)
@@ -292,13 +290,7 @@ public class DagProcessor
         //Sorting stack S in the decreasing order of their LST
         Collections.sort(stackS, new TaskComparator());
 
-        //delete S stack from all vertices
-        for(Vertex v : stackS)
-        {
-            allNodes.remove(v);
-        }
-
-        while(allNodes.size() > 0)
+        while(stackS.size() > 0)
         {
             Vertex vertex = stackS.peek();
             Set<Vertex> predecessors = findPredecessors(vertex);
@@ -306,7 +298,7 @@ public class DagProcessor
 
             for(Vertex v : predecessors)
             {
-                if (!stackS.contains(v))
+                if (!stackS.contains(v) & !resultTaskList.contains(v))
                 {
                     unstackedPredecessors.add(v);
                 }
@@ -314,7 +306,7 @@ public class DagProcessor
 
             if(unstackedPredecessors.size() == 0) //if top(S) has unstacked immediate predecessors then
             {
-                resultTaskList.add(vertex);
+                resultTaskList.add(stackS.poll());
             }
             else  //S ←the immediate predecessor with least LST
             {
@@ -328,7 +320,7 @@ public class DagProcessor
                         minLST = v.LST;
                     }
                 }
-                stackS.add(leastLST);
+                stackS.addFirst(leastLST);
             }
         }
 

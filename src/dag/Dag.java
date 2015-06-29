@@ -15,6 +15,8 @@ public class Dag
     public Set<Vertex> vertices = new HashSet<>();
     public Set<Edge> edges = new HashSet<>();
 
+    public double CCR;
+
     public List<Vertex> taskList;
 
     public void showDag() {

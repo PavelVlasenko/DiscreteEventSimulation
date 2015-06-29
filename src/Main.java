@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         DagGenerator generator = new DagGenerator();
-        Dag dag1 = generator.createDag(4);
+        Dag dag1 = generator.createDag(30);
         dag1.showDag();
 
         System.out.println("Calculate EST");
