@@ -4,6 +4,32 @@ public class Main {
 
     public static void main(String[] args) {
 
+        int dagNumb = 64;
+        int taskList = 3;
+        int iteration = 1;
+
+        for(int j = 0; j < iteration; j++)
+        {
+            JobExecutor jobExecutor = new JobExecutor();
+            DagGenerator dagGenerator = new DagGenerator();
+            System.out.println("========== Start iteration №" + j + " ===========");
+            System.out.println("======= Generate dags ========");
+            for (int i = 0; i < dagNumb; i++)
+            {
+                Dag dag = dagGenerator.createDag(taskList);
+                DagProcessor dagProcessor = new DagProcessor(dag);
+                dagProcessor.calculateEST();
+                dagProcessor.calculateLST();
+                dagProcessor.calculateTaskList();
+                dagProcessor.calculateCCR();
+                dagProcessor.calculateJobRank();
+                jobExecutor.sourceJobList.add(dag);
+            }
+
+            jobExecutor.calculateJobDeadline();
+        }
+
+
         DagGenerator generator = new DagGenerator();
         Dag dag1 = generator.createDag(30);
         dag1.showDag();

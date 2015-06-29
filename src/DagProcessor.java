@@ -9,15 +9,16 @@ import java.util.*;
  */
 public class DagProcessor
 {
-    Dag dag;
-    Set<Vertex> entryVertices;
+    private Dag dag;
+    private Set<Vertex> entryVertices;
     double wBar;
+    double sf = 1; //change this value for other scenario
 
     public DagProcessor(Dag dag) {
         this.dag = dag;
     }
 
-    public Set<Vertex> findEntryVertex()
+    private Set<Vertex> findEntryVertex()
     {
         //find V entry
         Set<Vertex> entryVertices = new HashSet<>();
@@ -124,7 +125,7 @@ public class DagProcessor
         }
     }
 
-    public Set<Vertex> findEndVertex()
+    private Set<Vertex> findEndVertex()
     {
         //find V entry
         Set<Vertex> endVertices = new HashSet<>();

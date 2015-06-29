@@ -14,7 +14,9 @@ public class Dag implements Runnable
 
     public double CCR;
     public double Jr;
+    public double Dd;
 
+    public double st;
     public long TA;
 
     public List<Vertex> taskList;

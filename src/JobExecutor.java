@@ -1,4 +1,5 @@
 import dag.Dag;
+import dag.Vertex;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.concurrent.Executors;
 public class JobExecutor
 {
     public List<Dag> jobList = new ArrayList<>();
+    public List<Dag> sourceJobList = new ArrayList<>();
 
     ExecutorService executor = Executors.newFixedThreadPool(5);
 
@@ -21,8 +23,8 @@ public class JobExecutor
 
     public void start()
     {
-        Date startIteration = new Date();
-        System.out.println("======= Start iteration time " + startIteration);
+//        Date startIteration = new Date();
+//        System.out.println("======= Start iteration time " + startIteration);
         for(Dag dag : jobList)
         {
             executor.execute(dag);
@@ -31,12 +33,29 @@ public class JobExecutor
         while (!executor.isTerminated())
         {
         }
-        Date finishIteration = new Date();
+       // Date finishIteration = new Date();
 
         //calculate MakeSpan and SLR
 
 
 
-        System.out.println("======= Finish iteration time " + finishIteration);
+     //   System.out.println("======= Finish iteration time " + finishIteration);
+    }
+
+    public void calculateJobDeadline()
+    {
+        for(Dag d : sourceJobList)
+        {
+            //calculate st
+            double st = 0d;
+            for (Vertex v : d.vertices)
+            {
+                st += v.computationCost;
+            }
+            d.st = st;
+        }
+
+        Date startTime = new Date();
+        for()
     }
 }
