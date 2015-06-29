@@ -15,6 +15,8 @@ public class Dag
     public Set<Vertex> vertices = new HashSet<>();
     public Set<Edge> edges = new HashSet<>();
 
+    public List<Vertex> taskList;
+
     public void showDag() {
         System.out.println("==================== Vertices   ================");
         for(Vertex vertex : vertices)
@@ -40,5 +42,15 @@ public class Dag
             }
         }
         return null;
+    }
+
+    public void showTaskList()
+    {
+        System.out.println("==================== TaskList   ================");
+        for(Vertex vertex : taskList)
+        {
+            System.out.println(vertex);
+        }
+
     }
 }
