@@ -1,16 +1,13 @@
 package dag;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * TODO: Java docs
  *
  * @author Pavel Vlasenko
  */
-public class Dag
+public class Dag implements Runnable
 {
     public Set<Vertex> vertices = new HashSet<>();
     public Set<Edge> edges = new HashSet<>();
@@ -18,7 +15,35 @@ public class Dag
     public double CCR;
     public double Jr;
 
+    public long TA;
+
     public List<Vertex> taskList;
+
+
+    @Override
+    public void run()
+    {
+        Date startTime = new Date();
+        //System.out.println("===== Start job time - " + startTime);
+        processDag();
+        Date endTime = new Date();
+        TA = endTime.getTime() - startTime.getTime();
+
+        //System.out.println("===== End job time - " + endTime);
+    }
+
+    private void processDag()
+    {
+        try {
+            for(Vertex v : taskList)
+            {
+                Thread.sleep(v.averageExecutionTime);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public void showDag() {
         System.out.println("==================== Vertices   ================");

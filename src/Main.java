@@ -30,6 +30,11 @@ public class Main {
         dag1.showDag();
         System.out.println(dag1);
 
+        System.out.println("Start Job Executor");
+        JobExecutor jobExecutor = new JobExecutor();
+        jobExecutor.jobList.add(dag1);
+        jobExecutor.start();
+
         System.out.println("Hello World!");
     }
 }
