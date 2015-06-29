@@ -16,6 +16,7 @@ public class Dag
     public Set<Edge> edges = new HashSet<>();
 
     public double CCR;
+    public double Jr;
 
     public List<Vertex> taskList;
 
@@ -54,5 +55,14 @@ public class Dag
             System.out.println(vertex);
         }
 
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Dag{" +
+                "CCR=" + CCR +
+                ", Jr=" + Jr +
+                '}';
     }
 }

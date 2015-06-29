@@ -12,15 +12,18 @@ public class Vertex
     public double computationCost;
     public int EST;
     public int LST;
+    public double W;
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Vertex{" +
                 "index=" + index +
                 ", averageExecutionTime=" + averageExecutionTime +
                 ", computationCost=" + computationCost +
                 ", EST=" + EST +
                 ", LST=" + LST +
+                ", W=" + W +
                 '}';
     }
 }

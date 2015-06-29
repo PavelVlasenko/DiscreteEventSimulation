@@ -11,6 +11,7 @@ public class DagProcessor
 {
     Dag dag;
     Set<Vertex> entryVertices;
+    double wBar;
 
     public DagProcessor(Dag dag) {
         this.dag = dag;
@@ -40,29 +41,6 @@ public class DagProcessor
         this.entryVertices = entryVertices;
         return entryVertices;
     }
-
-   /* private List<Vertex> findPredecessors(List<Vertex> dag, Vertex vertex)
-    {
-        List<Vertex> entryVertices = new ArrayList<>();
-        for(Vertex vertex : dag.vertices)
-        {
-            boolean hasPredecessors = false;
-            for(Edge edge : dag.edges)
-            {
-                if(edge.endVertex == vertex.index)
-                {
-                    hasPredecessors = true;
-                    break;
-                }
-            }
-            if(!hasPredecessors)
-            {
-                entryVertices.add(vertex);
-                vertex.EST = vertex.averageExecutionTime;
-            }
-        }
-        return entryVertices;
-    }*/
 
     public void calculateEST()
     {
@@ -325,6 +303,106 @@ public class DagProcessor
         }
 
         dag.taskList = resultTaskList;
+    }
+
+    public void calculateCCR()
+    {
+        double totalCommunicationCost = 0d;
+        double totalComputationCost = 0d;
+        for(Edge e : dag.edges)
+        {
+            totalCommunicationCost += e.communicationCost;
+        }
+
+        for(Vertex v : dag.vertices)
+        {
+            totalComputationCost += v.computationCost;
+        }
+
+        dag.CCR = totalComputationCost/totalCommunicationCost;
+    }
+
+    public void calculateJobRank()
+    {
+        //calculate average computation time
+        double totalComputationCost = 0d;
+        for(Vertex v : dag.vertices)
+        {
+            totalComputationCost += v.computationCost;
+        }
+        wBar = totalComputationCost/dag.vertices.size();
+
+        Set<Vertex> procesedVertices = new HashSet<>(dag.vertices);
+        Set<Vertex> currentVertices = findEndVertex();
+        Set<Vertex> bufferVertices = new HashSet<>();
+
+        //set W for end vertices and remove from processedVertices
+        for(Vertex v : currentVertices)
+        {
+            v.W = wBar + v.computationCost;
+            procesedVertices.remove(v);
+        }
+
+        //while processedList has vertices, calculate W
+        while(procesedVertices.size() > 0)
+        {
+            currentVertices = findPredecessors(currentVertices);
+            for(Vertex v : currentVertices)
+            {
+                if(defineJr(v))
+                {
+                    procesedVertices.remove(v);
+                }
+                else
+                {
+                    bufferVertices.add(v);
+                }
+            }
+
+            for (Iterator<Vertex> iterator = bufferVertices.iterator(); iterator.hasNext(); )
+            {
+                Vertex v = iterator.next();
+                if (defineJr(v))
+                {
+                    iterator.remove();
+                    procesedVertices.remove(v);
+                }
+            }
+        }
+
+        double Jr = 0d;
+        for(Vertex v : dag.vertices)
+        {
+             if(v.W >Jr)
+             {
+                 Jr = v.W;
+             }
+        }
+
+        dag.Jr = Jr;
+    }
+
+    private boolean defineJr(Vertex vertex)
+    {
+        Set<Vertex> successors = findSuccessors(vertex);
+        boolean isDefined = false;
+        double maxW = 0;
+        for(Vertex v : successors)
+        {
+            if(v.W == 0)
+            {
+                return false;
+            }
+            else
+            {
+                if(v.W > maxW)
+                {
+                    maxW = v.W;
+                }
+            }
+        }
+        vertex.W = maxW + wBar;
+        return true;
     }
 
 }

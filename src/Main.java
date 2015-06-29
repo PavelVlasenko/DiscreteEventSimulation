@@ -22,6 +22,14 @@ public class Main {
         processor.calculateTaskList();
         dag1.showTaskList();
 
+        System.out.println("Calculate CCR");
+        processor.calculateCCR();
+
+        System.out.println("Calculate JobRank");
+        processor.calculateJobRank();
+        dag1.showDag();
+        System.out.println(dag1);
+
         System.out.println("Hello World!");
     }
 }

@@ -55,7 +55,7 @@ public class DagGenerator
             Vertex vertex = new Vertex();
             vertex.index = i;
             vertex.averageExecutionTime = 25 + random.nextInt(75);
-            vertex.computationCost = (2 + random.nextInt(5))/10;
+            vertex.computationCost = (2 + random.nextInt(5))/10.0;
             dag.vertices.add(vertex);
         }
 
