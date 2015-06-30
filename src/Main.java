@@ -10,12 +10,13 @@ public class Main {
         int taskNumb = 3;
         int iteration = 2;
 
+        System.out.println("======================================================\r\n                  Discrete Event Simulation\r\n======================================================");
         for(int i = 0; i < iteration; i++)
         {
             JobExecutor jobExecutor = new JobExecutor();
             DagGenerator dagGenerator = new DagGenerator();
-            System.out.println("========== Start iteration №" + i + " ===========");
-            System.out.println("======= Generate dags ========");
+            System.out.println("         START ITERATION N" + (i+1));
+            System.out.println("...Generate dags");
             for (int j = 0; j < dagNumb; j++)
             {
                 Dag dag = dagGenerator.createDag(taskNumb);
@@ -29,50 +30,17 @@ public class Main {
             }
 
             jobExecutor.calculateJobDeadline();
-            jobExecutor.showJobs();
-
-            System.out.println("======= Ordered jobs by RANK ========");
             jobExecutor.sortingJobsByRank();
-            jobExecutor.showJobs();
-
+            System.out.println("...Start Jobs processing");
             jobExecutor.start();
             jobExecutor.calculateSLR();
+            System.out.println();
+            jobExecutor.showJobs();
+            System.out.println();
 
+            System.out.println("...Save iteration in file: Iteration" + (i+1) + ".txt");
             jobExecutor.writeOnFile(i);
+            System.out.println("___________________________________________________________________\r\n");
         }
-
-
-//        DagGenerator generator = new DagGenerator();
-//        Dag dag1 = generator.createDag(30);
-//        dag1.showDag();
-//
-//        System.out.println("Calculate EST");
-//
-//        DagProcessor processor = new DagProcessor(dag1);
-//        processor.calculateEST();
-//
-//        System.out.println("Calculate LST");
-//        processor.calculateLST();
-//
-//        dag1.showDag();
-//
-//        System.out.println("Create taskList");
-//        processor.calculateTaskList();
-//        dag1.showTaskList();
-//
-//        System.out.println("Calculate CCR");
-//        processor.calculateCCR();
-//
-//        System.out.println("Calculate JobRank");
-//        processor.calculateJobRank();
-//        dag1.showDag();
-//        System.out.println(dag1);
-//
-//        System.out.println("Start Job Executor");
-//        JobExecutor jobExecutor = new JobExecutor();
-//        jobExecutor.jobList.add(dag1);
-//        jobExecutor.start();
-//
-//        System.out.println("Hello World!");
     }
 }

@@ -143,7 +143,7 @@ public class JobExecutor
 
     public void writeOnFile(int iteration)
     {
-        File f = new File("Iteration " + iteration + ".txt");
+        File f = new File("Iteration " + (++iteration) + ".txt");
         try
         {
             if(!f.exists())
@@ -156,24 +156,24 @@ public class JobExecutor
              System.out.println("Error creating file iteration " + iteration);
         }
         //print Dag with CCR, JR, Dd, Makespan and SLR
-        String s = "";
+        String s = "=================================================================================\r\n               Iteration N" + iteration + "\r\n=================================================================================\r\n\r\n";
+        s+="DAG LIST\r\n\r\n";
         for(Dag d : jobList)
         {
             s += d.toString() + "\r\n";
         }
 
-
         for(Dag d : jobList)
         {
-            s += "\r\n\r\n =====================================================================\r\nDAG N" + jobList.indexOf(d) +"\r\n======================================================\r\n";
+            s += "_________________________________________________________________________________\r\nDAG N" + jobList.indexOf(d);
 
-            s += "\r\n\r\n =====================================================================\r\nDAG VERTICES\r\n======================================================\r\n";
+            s += "\r\nDAG VERTICES\r\n";
             for(Vertex v : d.taskList)
             {
                 s+=v.toString() + "\r\n";
             }
 
-            s += "\r\n\r\n =====================================================================\r\nDAG EDGES\r\n======================================================\r\n";
+            s += "\r\nDAG EDGES\r\n";
             for(Edge e : d.edges)
             {
                 s+=e.toString() + "\r\n";
