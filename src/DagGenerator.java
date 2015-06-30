@@ -50,8 +50,8 @@ public class DagGenerator
         {
             Vertex vertex = new Vertex();
             vertex.index = i;
-            vertex.averageExecutionTime = 25 + random.nextInt(75);
-            vertex.computationCost = (2 + random.nextInt(5))/10.0;
+            vertex.averageExecutionTime = 25 + random.nextInt(76);
+            vertex.computationCost = (2 + random.nextInt(6))/10.0;
             dag.vertices.add(vertex);
         }
 
@@ -65,7 +65,7 @@ public class DagGenerator
                     Edge edge = new Edge();
                     edge.startVertex = i;
                     edge.endVertex = j;
-                    edge.communicationCost = (3 + random.nextInt(2))/10.0;
+                    edge.communicationCost = (3 + random.nextInt(3))/10.0;
                     dag.edges.add(edge);
                 }
             }

@@ -9,16 +9,15 @@ public class Main {
     public static void main(String[] args) {
 
         //Enter parameters
-    /*    Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the number of jobs");
         int dagNumb = Integer.valueOf(scanner.nextLine());
 
         System.out.println("Enter the number of tasks");
-        int taskNumb = Integer.valueOf(scanner.nextLine());*/
+        int taskNumb = Integer.valueOf(scanner.nextLine());
 
-        int dagNumb = 64;
-        int taskNumb = 20;
-        int iteration = 1;
+        System.out.println("Enter the number iteration");
+        int iteration = Integer.valueOf(scanner.nextLine());
 
         System.out.println("======================================================\r\n                  Discrete Event Simulation\r\n======================================================");
         for(int i = 0; i < iteration; i++)
