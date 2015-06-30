@@ -80,7 +80,7 @@ public class JobExecutor
 
         for(Dag d : jobList)
         {
-            d.SLR = d.makespan/minMakespan;
+            d.SLR = d.makespan/(double)minMakespan;
         }
     }
 
