@@ -10,8 +10,6 @@ public class Main {
         int taskNumb = 3;
         int iteration = 1;
 
-
-
         for(int i = 0; i < iteration; i++)
         {
             JobExecutor jobExecutor = new JobExecutor();
@@ -31,11 +29,16 @@ public class Main {
             }
 
             jobExecutor.calculateJobDeadline();
-            jobExecutor.showSourceJobs();
+            jobExecutor.showJobs();
 
-            System.out.println("======= Ordered jobs ========");
+            System.out.println("======= Ordered jobs by RANK ========");
             jobExecutor.sortingJobsByRank();
-            jobExecutor.showSourceJobs();
+            jobExecutor.showJobs();
+
+            jobExecutor.start();
+            jobExecutor.calculateSLR();
+
+            jobExecutor.writeOnFile(i);
         }
 
 

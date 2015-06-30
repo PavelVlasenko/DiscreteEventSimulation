@@ -1,10 +1,5 @@
 package dag;
 
-/**
- * TODO: Java docs
- *
- * @author Pavel Vlasenko
- */
 public class Edge
 {
     public int startVertex;

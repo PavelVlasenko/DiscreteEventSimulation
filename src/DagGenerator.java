@@ -36,13 +36,14 @@ public class DagGenerator
         int iRandom = random.nextInt(vertexNumb - 2);
         matrix[iRandom][vertexNumb -1] = 1;
 
-        for(int i = 0; i < vertexNumb; i++)
+        //show matrix
+        /*for(int i = 0; i < vertexNumb; i++)
         {
             for(int j = 0; j < vertexNumb; j++) {
                 System.out.print(matrix[i][j]);
             }
             System.out.print("\r\n");
-        }
+        }*/
 
         //create vertices
         for(int i = 0; i < vertexNumb; i++)

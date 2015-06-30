@@ -2,11 +2,6 @@ import dag.Dag;
 
 import java.util.Comparator;
 
-/**
- * TODO: Java docs
- *
- * @author Pavel Vlasenko
- */
 public class JobComparator implements Comparator<Dag>
 {
     @Override

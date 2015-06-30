@@ -1,6 +1,8 @@
 import dag.Dag;
+import dag.Edge;
 import dag.Vertex;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -8,21 +10,15 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * TODO: Java docs
- *
- * @author Pavel Vlasenko
- */
 public class JobExecutor
 {
     public List<Dag> jobList = new ArrayList<>();
 
-    ExecutorService executor = Executors.newFixedThreadPool(5);
+    //Pool of threads with 4 processors.
+    ExecutorService executor = Executors.newFixedThreadPool(4);
 
     public void start()
     {
-//        Date startIteration = new Date();
-//        System.out.println("======= Start iteration time " + startIteration);
         for(Dag dag : jobList)
         {
             executor.execute(dag);
@@ -31,13 +27,6 @@ public class JobExecutor
         while (!executor.isTerminated())
         {
         }
-       // Date finishIteration = new Date();
-
-        //calculate MakeSpan and SLR
-
-
-
-     //   System.out.println("======= Finish iteration time " + finishIteration);
     }
 
     public void sortingJobsByRank()
@@ -78,7 +67,9 @@ public class JobExecutor
         }
     }
 
-    public void showSourceJobs()
+    public void calculateSLR
+
+    public void showJobs()
     {
         for(Dag d : jobList)
         {
@@ -86,11 +77,55 @@ public class JobExecutor
         }
     }
 
-    public void showOrderedJobs()
+    public void writeOnFile(int iteration)
     {
+        File f = new File("Iteration " + iteration);
+        try
+        {
+            if(!f.exists())
+            {
+                f.createNewFile();
+            }
+        }
+        catch(IOException e)
+        {
+             System.out.println("Error creating file iteration " + iteration);
+        }
+        //print Dag with CCR, JR, Dd, Makespan and SLR
+        String s = "";
         for(Dag d : jobList)
         {
-            System.out.println(d);
+            s += d.toString() + "\r\n";
         }
+
+
+        for(Dag d : jobList)
+        {
+            s += "\r\n\r\n =====================================================================\r\nDAG N" + jobList.indexOf(d) +"\r\n======================================================\r\n";
+
+            s += "\r\n\r\n =====================================================================\r\nDAG VERTICES\r\n======================================================\r\n";
+            for(Vertex v : d.taskList)
+            {
+                s+=v.toString() + "\r\n";
+            }
+
+            s += "\r\n\r\n =====================================================================\r\nDAG EDGES\r\n======================================================\r\n";
+            for(Edge e : d.edges)
+            {
+                s+=e.toString() + "\r\n";
+            }
+        }
+
+        //write to file
+        try
+        {
+            Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f)));
+            writer.write(s);
+        }
+        catch(IOException e)
+        {
+             System.out.println("Error while writing to file");
+        }
+
     }
 }

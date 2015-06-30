@@ -2,11 +2,6 @@ package dag;
 
 import java.util.*;
 
-/**
- * TODO: Java docs
- *
- * @author Pavel Vlasenko
- */
 public class Dag implements Runnable
 {
     public Set<Vertex> vertices = new HashSet<>();
@@ -15,6 +10,9 @@ public class Dag implements Runnable
     public double CCR;
     public double Jr;
     public double Dd;
+
+    public long makespan;
+    public double SLR;
 
     public double st;
 
@@ -25,11 +23,9 @@ public class Dag implements Runnable
     public void run()
     {
         Date startTime = new Date();
-        //System.out.println("===== Start job time - " + startTime);
         processDag();
         Date endTime = new Date();
-
-        //System.out.println("===== End job time - " + endTime);
+        makespan = endTime.getTime() - startTime.getTime();
     }
 
     private void processDag()
@@ -89,7 +85,8 @@ public class Dag implements Runnable
                 "CCR=" + CCR +
                 ", Jr=" + Jr +
                 ", Dd=" + Dd +
-                ", st=" + st +
+                ", SLR=" + SLR +
+                ", makespan=" + makespan +
                 '}';
     }
 }

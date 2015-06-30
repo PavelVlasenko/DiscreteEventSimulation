@@ -1,10 +1,5 @@
 package dag;
 
-/**
- * TODO: Java docs
- *
- * @author Pavel Vlasenko
- */
 public class Vertex
 {
     public int index;
@@ -23,7 +18,6 @@ public class Vertex
                 ", computationCost=" + computationCost +
                 ", EST=" + EST +
                 ", LST=" + LST +
-                ", W=" + W +
                 '}';
     }
 }

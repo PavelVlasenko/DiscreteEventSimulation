@@ -4,9 +4,6 @@ import dag.Vertex;
 
 import java.util.*;
 
-/**
- * Created by pavel on 25.06.15.
- */
 public class DagProcessor
 {
     private Dag dag;
