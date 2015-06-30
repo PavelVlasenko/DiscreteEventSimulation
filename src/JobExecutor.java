@@ -2,6 +2,7 @@ import dag.Dag;
 import dag.Vertex;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -15,11 +16,8 @@ import java.util.concurrent.Executors;
 public class JobExecutor
 {
     public List<Dag> jobList = new ArrayList<>();
-    public List<Dag> sourceJobList = new ArrayList<>();
 
     ExecutorService executor = Executors.newFixedThreadPool(5);
-
-
 
     public void start()
     {
@@ -42,9 +40,14 @@ public class JobExecutor
      //   System.out.println("======= Finish iteration time " + finishIteration);
     }
 
+    public void sortingJobsByRank()
+    {
+        Collections.sort(jobList, new JobComparator());
+    }
+
     public void calculateJobDeadline()
     {
-        for(Dag d : sourceJobList)
+        for(Dag d : jobList)
         {
             //calculate st
             double st = 0d;
@@ -55,7 +58,39 @@ public class JobExecutor
             d.st = st;
         }
 
-        Date startTime = new Date();
-        for()
+        for(Dag d : jobList)
+        {
+            Date startJobTime =new Date();
+            for(Vertex v : d.taskList)
+            {
+                try
+                {
+                    Thread.sleep(v.averageExecutionTime);
+                }
+                catch(InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            Date endJobTime = new Date();
+            long ta = endJobTime.getTime() - startJobTime.getTime();
+            d.Dd =d.st + Main.sf*ta;
+        }
+    }
+
+    public void showSourceJobs()
+    {
+        for(Dag d : jobList)
+        {
+            System.out.println(d);
+        }
+    }
+
+    public void showOrderedJobs()
+    {
+        for(Dag d : jobList)
+        {
+            System.out.println(d);
+        }
     }
 }

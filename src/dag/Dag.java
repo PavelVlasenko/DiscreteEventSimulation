@@ -17,7 +17,6 @@ public class Dag implements Runnable
     public double Dd;
 
     public double st;
-    public long TA;
 
     public List<Vertex> taskList;
 
@@ -29,7 +28,6 @@ public class Dag implements Runnable
         //System.out.println("===== Start job time - " + startTime);
         processDag();
         Date endTime = new Date();
-        TA = endTime.getTime() - startTime.getTime();
 
         //System.out.println("===== End job time - " + endTime);
     }
@@ -90,6 +88,8 @@ public class Dag implements Runnable
         return "Dag{" +
                 "CCR=" + CCR +
                 ", Jr=" + Jr +
+                ", Dd=" + Dd +
+                ", st=" + st +
                 '}';
     }
 }

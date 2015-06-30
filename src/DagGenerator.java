@@ -4,11 +4,6 @@ import dag.Vertex;
 
 import java.util.Random;
 
-/**
- * TODO: Java docs
- *
- * @author Pavel Vlasenko
- */
 public class DagGenerator
 {
     public Dag createDag(int vertexNumb)
