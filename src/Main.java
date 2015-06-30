@@ -8,7 +8,7 @@ public class Main {
 
         int dagNumb = 3;
         int taskNumb = 3;
-        int iteration = 1;
+        int iteration = 2;
 
         for(int i = 0; i < iteration; i++)
         {

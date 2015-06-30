@@ -27,6 +27,44 @@ public class JobExecutor
         while (!executor.isTerminated())
         {
         }
+
+        //Uncomment one of experiment if needed.
+
+        //Experiment N1(Loose situation). Arrival time 30unit
+        /*for(Dag dag : jobList)
+        {
+             try
+             {
+                Thread.sleep(5);
+             }
+             catch (InterruptedException e)
+             {
+                e.printStackTrace();
+             }
+            executor.execute(dag);
+        }
+        executor.shutdown();
+        while (!executor.isTerminated())
+        {
+        }*/
+
+        //Experiment N2(Tight situation). Arrival time 5unit
+        /*for(Dag dag : jobList)
+        {
+            try
+            {
+                Thread.sleep(2000);
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+            executor.execute(dag);
+        }
+        executor.shutdown();
+        while (!executor.isTerminated())
+        {
+        }*/
     }
 
     public void sortingJobsByRank()
@@ -47,6 +85,7 @@ public class JobExecutor
             d.st = st;
         }
 
+        Date startIterationTime = new Date();
         for(Dag d : jobList)
         {
             Date startJobTime =new Date();
@@ -64,6 +103,16 @@ public class JobExecutor
             Date endJobTime = new Date();
             long ta = endJobTime.getTime() - startJobTime.getTime();
             d.Dd =d.st + Main.sf*ta;
+        }
+        Date endIterationTime = new Date();
+        long exe = endIterationTime.getTime() - startIterationTime.getTime();
+
+        for(Dag d : jobList)
+        {
+            if(d.Dd > exe)
+            {
+                d.Dd = exe;
+            }
         }
     }
 
