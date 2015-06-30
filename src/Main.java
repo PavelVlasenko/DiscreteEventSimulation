@@ -1,14 +1,24 @@
 import dag.Dag;
 
+import java.util.Scanner;
+
 public class Main {
 
     public static double sf = 1d;
 
     public static void main(String[] args) {
 
-        int dagNumb = 3;
-        int taskNumb = 3;
-        int iteration = 2;
+        //Enter parameters
+    /*    Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the number of jobs");
+        int dagNumb = Integer.valueOf(scanner.nextLine());
+
+        System.out.println("Enter the number of tasks");
+        int taskNumb = Integer.valueOf(scanner.nextLine());*/
+
+        int dagNumb = 64;
+        int taskNumb = 20;
+        int iteration = 1;
 
         System.out.println("======================================================\r\n                  Discrete Event Simulation\r\n======================================================");
         for(int i = 0; i < iteration; i++)
@@ -28,6 +38,7 @@ public class Main {
                 dagProcessor.calculateJobRank();
                 jobExecutor.jobList.add(dag);
             }
+            System.out.println("...Calculate all parameters");
 
             jobExecutor.calculateJobDeadline();
             jobExecutor.sortingJobsByRank();
