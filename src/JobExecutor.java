@@ -67,7 +67,22 @@ public class JobExecutor
         }
     }
 
-    public void calculateSLR
+    public void calculateSLR()
+    {
+        long minMakespan = Long.MAX_VALUE;
+        for(Dag d : jobList)
+        {
+            if(d.makespan < minMakespan)
+            {
+                minMakespan = d.makespan;
+            }
+        }
+
+        for(Dag d : jobList)
+        {
+            d.SLR = d.makespan/minMakespan;
+        }
+    }
 
     public void showJobs()
     {
@@ -79,7 +94,7 @@ public class JobExecutor
 
     public void writeOnFile(int iteration)
     {
-        File f = new File("Iteration " + iteration);
+        File f = new File("Iteration " + iteration + ".txt");
         try
         {
             if(!f.exists())
@@ -121,6 +136,7 @@ public class JobExecutor
         {
             Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f)));
             writer.write(s);
+            writer.close();
         }
         catch(IOException e)
         {
