@@ -17,39 +17,53 @@ public class JobExecutor
     //Pool of threads with 4 processors.
     ExecutorService executor = Executors.newFixedThreadPool(4);
 
+    private int experiment;
+    public double avgMakespan;
+    public double avgSLR;
+
+    public JobExecutor(int experiment)
+    {
+        this.experiment = experiment;
+    }
+
     public void start()
     {
-        for(Dag dag : jobList)
+        if(experiment == 0)
         {
-            executor.execute(dag);
+            for(Dag dag : jobList)
+            {
+                executor.execute(dag);
+            }
+            executor.shutdown();
+            while(!executor.isTerminated())
+            {
+            }
         }
-        executor.shutdown();
-        while (!executor.isTerminated())
-        {
-        }
-
-        //Uncomment one of experiment if needed.
 
         //Experiment N1(Loose situation). Arrival time 30unit
-        /*for(Dag dag : jobList)
+        else if(experiment == 1)
         {
-             try
-             {
-                Thread.sleep(5);
-             }
-             catch (InterruptedException e)
-             {
-                e.printStackTrace();
-             }
-            executor.execute(dag);
+            for(Dag dag : jobList)
+            {
+                try
+                {
+                    Thread.sleep(5);
+                }
+                catch(InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                executor.execute(dag);
+            }
+            executor.shutdown();
+            while(!executor.isTerminated())
+            {
+            }
         }
-        executor.shutdown();
-        while (!executor.isTerminated())
-        {
-        }*/
 
         //Experiment N2(Tight situation). Arrival time 5unit
-        /*for(Dag dag : jobList)
+        else if(experiment == 2)
+        for(Dag dag : jobList)
         {
             try
             {
@@ -64,7 +78,7 @@ public class JobExecutor
         executor.shutdown();
         while (!executor.isTerminated())
         {
-        }*/
+        }
     }
 
     public void sortingJobsByRank()
@@ -116,6 +130,26 @@ public class JobExecutor
         }
     }
 
+    public void calculateAvgMakespan()
+    {
+        long sumMakespan = 0;
+        for(Dag d : jobList)
+        {
+            sumMakespan += d.makespan;
+        }
+        avgMakespan = (double)sumMakespan/jobList.size();
+    }
+
+    public void calculateAvgSLR()
+    {
+        double sumSLR = 0;
+        for(Dag d : jobList)
+        {
+            sumSLR += d.SLR;
+        }
+        avgSLR = sumSLR/(double)jobList.size();
+    }
+
     public void calculateSLR()
     {
         long minMakespan = Long.MAX_VALUE;
@@ -162,6 +196,8 @@ public class JobExecutor
         {
             s += d.toString() + "\r\n";
         }
+
+        s+="\r\navg Makespan = " + avgMakespan + ", avg SLR = " + avgSLR + "\r\n";
 
         for(Dag d : jobList)
         {
